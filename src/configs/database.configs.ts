@@ -14,7 +14,7 @@ const databaseConfigs = {
     password: envConfigurations.DB_PASS,
     database: envConfigurations.DB_NAME,
     // ssl: isProduction ? { rejectUnauthorized: true } : false,
-    synchronize: !isProduction,
+    synchronize: true,
     logging: isProduction,
     // entities: isProduction
     //     ? ["dist/features/**/entities/**/*.entities.js"]
