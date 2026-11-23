@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit",
     "dev": "nodemon",
     "build": "tsc",
+    "lint": "eslint src",
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
