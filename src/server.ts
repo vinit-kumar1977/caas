@@ -6,13 +6,28 @@ import { initializeDataBase } from "./infrastructures/database/data-source.datab
 const startServer = async () => {
     try {
         await initializeDataBase();
-        // await seedProduct();
-        // await seedSuperUser();
-    } catch (error) {
-        console.error("Failed to start server:", error);
-        process.exit(1);
-  }
-};
-startServer();
 
-app.listen(envConfigurations.APP_PORT,()=>console.log(`App is running ${envConfigurations.APP_PORT}\n${new Date().toLocaleString()}`));
+        app.listen(envConfigurations.APP_PORT, () => {
+            console.log(
+                `App is running on port ${envConfigurations.APP_PORT}`
+            );
+            console.log(new Date().toLocaleString());
+        });
+
+    } catch (error) {
+        console.error("Failed to start server:");
+
+        if (error instanceof Error) {
+            console.error("Name:", error.name);
+            console.error("Message:", error.message);
+            console.error("Stack:", error.stack);
+            console.error("Cause:", error.cause);
+        } else {
+            console.error(error);
+        }
+
+        process.exit(1);
+    }
+};
+
+startServer();

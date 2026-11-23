@@ -1,6 +1,10 @@
 import envConfigurations from "./env.configs.js"
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const isProduction = envConfigurations.APP_ENV === "production";
+
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 const databaseConfigs = {
     type: "postgres" as const,
@@ -9,16 +13,22 @@ const databaseConfigs = {
     username: envConfigurations.DB_USER,
     password: envConfigurations.DB_PASS,
     database: envConfigurations.DB_NAME,
-    ssl: isProduction ? { rejectUnauthorized: true } : false,
-    synchronize: !isProduction,
-    logging: isProduction,
-    entities: isProduction
-        ? ["dist/features/**/entities/**/*.entities.js"]
-        : ["src/features/**/entities/**/*.entities.{ts,js}"],
+    // ssl: isProduction ? { rejectUnauthorized: true } : false,
+    synchronize: true,
+    logging: false,
+    // entities: isProduction
+    //     ? ["dist/features/**/entities/**/*.entities.js"]
+    //     : ["src/features/**/entities/**/*.entities.{ts,js}"],
+    entities: [
+        path.join(
+            currentDir,
+            "../features/**/entities/**/*.entities.{js,ts}"
+        )
+    ],
         
-    migrations: isProduction
-        ? ["dist/database/migrations/*.js"]
-        : ["src/database/migrations/*.ts"],
+    // migrations: isProduction
+    //     ? ["dist/database/migrations/*.js"]
+    //     : ["src/database/migrations/*.ts"],
 
     extra: {
         min: envConfigurations.DB_POOL_MIN,
