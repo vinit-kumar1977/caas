@@ -16,10 +16,10 @@ export interface ErrorDetailsInterface {
     details?: unknown;
 }
 
-export interface SuccessResponseInterface {
+export interface SuccessResponseInterface<T = unknown> {
     statusCode: number;
     message?: string;
-    data?: any;
+    data?: T;
     pagination?: PaginationMetaInterface;
 }
 
