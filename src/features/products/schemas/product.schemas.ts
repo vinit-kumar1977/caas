@@ -76,8 +76,6 @@ const productProperties = {
             maxLength: 100,
             pattern: "^(?!(__proto__|prototype|constructor)$)[a-zA-Z0-9_.-]+$",
         },
-
-        additionalProperties: false,
     },
 };
 
