@@ -5,6 +5,6 @@ import { createProductSchema } from "../schemas/product.schemas.js";
 const routes = Router();
 
 const {controller} = createProductContainer();
-routes.post("/", validateRequest({body:createProductSchema}), controller.createProduct);
+routes.post("/", controller.createProduct);
 
 export default routes;
