@@ -35,6 +35,7 @@ export class Product extends AuditEntity {
     @Column({
         type: "varchar",
         length: 50,
+        unique: true,
     })
     code: string;
 

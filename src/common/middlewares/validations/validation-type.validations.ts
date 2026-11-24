@@ -11,8 +11,7 @@ export type RequestValidationSchemas = Partial<
 >;
 
 export interface ValidationErrorDetail {
-  source: RequestValidationSource;
   field: string;
   message: string;
-  code: string;
 }
+
