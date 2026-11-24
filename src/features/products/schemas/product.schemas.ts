@@ -43,7 +43,7 @@ const productProperties = {
         type: "string",
         minLength: 3,
         maxLength: 50,
-        pattern: "^[A-Z][A-Z0-9_]{2,49}$",
+        pattern: "^[a-z][a-z0-9_]{2,49}$",
     },
 
     description: {
