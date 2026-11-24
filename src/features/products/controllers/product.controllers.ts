@@ -13,7 +13,7 @@ export class ProductController{
     createProduct = asyncHandler(async (req: Request, res: Response): Promise<void> => {
       const { ...productData }: ICreateProduct = req.body;
       const response = await this.service.create(productData);
-      ApiResponse.success(res, { statusCode: 200, message: "Product created", data: { product: productData } });
+      ApiResponse.success(res, { statusCode: 200, message: "Product created", data: { product: response } });
     
   }); 
 }
