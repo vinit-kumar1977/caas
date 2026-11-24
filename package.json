@@ -12,7 +12,8 @@
     "start": "node dist/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "migration:run": "typeorm migration:run -d dist/config/database/data-source.js"
   },
   "keywords": [],
   "author": "Vinit Kumar Patel",

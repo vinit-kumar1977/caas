@@ -25,10 +25,11 @@ const databaseConfigs = {
             "../features/**/entities/**/*.entities.{js,ts}"
         )
     ],
+    migrationsRun: true,
         
-    // migrations: isProduction
-    //     ? ["dist/database/migrations/*.js"]
-    //     : ["src/database/migrations/*.ts"],
+    migrations: isProduction
+        ? ["dist/database/migrations/*.js"]
+        : ["src/database/migrations/*.ts"],
 
     extra: {
         min: envConfigurations.DB_POOL_MIN,

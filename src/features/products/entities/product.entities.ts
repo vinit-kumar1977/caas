@@ -13,16 +13,8 @@ import { ProductSettings } from "../schemas/product.schemas.js";
 @Index("uq_products_code", ["code"], { unique: true })
 @Index("idx_products_status", ["status"])
 @Index("idx_products_public_status", ["isPublic", "status"])
-
-@Check(
-    "chk_products_code_format",
-    `"code" ~ '^[A-Z][A-Z0-9_]{2,49}$'`
-)
-
-@Check(
-    "chk_products_status",
-    `"status" IN ('ACTIVE', 'INACTIVE', 'ARCHIVED')`
-)
+@Check("chk_products_code_format",`"code" ~ '^[a-z][a-z0-9_]{2,49}$'`)
+@Check("chk_products_status",`"status" IN ('draft', 'active', 'inactive', 'suspended', 'archived')`,)
 
 export class Product extends AuditEntity {
 
@@ -35,7 +27,6 @@ export class Product extends AuditEntity {
     @Column({
         type: "varchar",
         length: 50,
-        unique: true,
     })
     code: string;
 
