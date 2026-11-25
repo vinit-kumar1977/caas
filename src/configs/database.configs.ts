@@ -2,7 +2,7 @@ import envConfigurations from "./env.configs.js"
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const isProduction = envConfigurations.APP_ENV === "production";
+// const isProduction = envConfigurations.APP_ENV === "production";
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 

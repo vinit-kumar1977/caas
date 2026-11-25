@@ -62,7 +62,7 @@ export class ModuleService {
 
   async update(moduleData: IUpdateModule, id: string): Promise<Module> {
     try {
-      return await AppDataSource.transaction(async (manager) => {
+      return await AppDataSource.transaction(async () => {
         const module = await this.repo.findModuleById(id);
         if (!module) throw new AppError("Module not found.", 409);
         if (moduleData.status) validateEnum(moduleData.status, ModuleStatus, "status");

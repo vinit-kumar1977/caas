@@ -3,13 +3,11 @@ import type { EntityQueryPolicy } from "../../../common/schemas/query.schemas.js
 export const MODULE_QUERY_POLICY: EntityQueryPolicy = {
     searchableFields: [
         "name",
-        "code",
     ],
 
     sortableFields: [
         "id",
         "name",
-        "code",
         "status",
         "createdAt",
         "updatedAt",
@@ -17,17 +15,6 @@ export const MODULE_QUERY_POLICY: EntityQueryPolicy = {
 
     filterableFields: {
         name: {
-            type: "string",
-            operators: [
-                "contains",
-                "equals",
-                "notEquals",
-                "startsWith",
-                "endsWith",
-            ],
-        },
-
-        code: {
             type: "string",
             operators: [
                 "contains",
