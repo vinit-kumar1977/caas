@@ -13,15 +13,17 @@ export abstract class AuditEntity extends SoftDeleteEntity {
     nullable: true,
     update: false,
     select:false,
+    name:"created_by"
   })
-  created_by: string | null;
+  createdBy: string | null;
 
   @Column({
     type: "uuid",
     select:false,
+    name:"updated_by",
     nullable: true,
   })
-  updated_by: string | null;
+  updatedBy: string | null;
 
   @BeforeInsert()
   protected beforeInsert(): void {

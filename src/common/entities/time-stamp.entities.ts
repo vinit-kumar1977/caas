@@ -5,14 +5,16 @@ export abstract class TimestampEntity extends PrimaryKey {
 
     @CreateDateColumn({
         type: "timestamptz",
-        default: () => "CURRENT_TIMESTAMP"
+        default: () => "CURRENT_TIMESTAMP",
+        name:"created_at"
     })
-    created_at: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({
         type: "timestamptz",
+        name:"updated_at",
         default: () => "CURRENT_TIMESTAMP",
         onUpdate: "CURRENT_TIMESTAMP",
     })
-    updated_at: Date;
+    updatedAt: Date;
 }

@@ -19,7 +19,8 @@ export interface ErrorDetailsInterface {
 export interface SuccessResponseInterface<T = unknown> {
     statusCode: number;
     message?: string;
-    data?: T;
+    data?: any;
+    variable?: string;
     pagination?: PaginationMetaInterface;
 }
 
