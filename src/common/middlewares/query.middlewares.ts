@@ -3,14 +3,13 @@ import type {
     Response,
     NextFunction,
 } from "express";
-import { FullQueryInterface } from "../schemas/query.schemas.js";
+
+import type { FullQueryInterface } from "../schemas/query.schemas.js";
 import { parseFullQuery } from "../utils/query-parser.utils.js";
 
-declare global {
-    namespace Express {
-        interface Request {
-            fullQuery?: FullQueryInterface;
-        }
+declare module "express-serve-static-core" {
+    interface Request {
+        fullQuery?: FullQueryInterface;
     }
 }
 
@@ -20,7 +19,9 @@ export const queryMiddleware = (
     next: NextFunction,
 ): void => {
     try {
-        req.fullQuery = parseFullQuery(req.query as Record<string, unknown>);
+        req.fullQuery = parseFullQuery(
+            req.query as Record<string, unknown>,
+        );
 
         next();
     } catch (error) {

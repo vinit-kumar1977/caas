@@ -47,7 +47,7 @@ export class ModuleRepository {
             .createQueryBuilder("m")
             .where("m.deletedAt IS NULL")
             .andWhere("m.status = :status", { status: "active" })
-            .select(["m.id", "m.name", "m.code", "m.icon"])
+            .select(["m.id", "m.name", "m.icon"])
         applySearchSortFilters(
             qb,
             "m",

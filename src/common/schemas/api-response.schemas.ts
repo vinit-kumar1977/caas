@@ -16,7 +16,7 @@ export interface ErrorDetailsInterface {
     details?: unknown;
 }
 
-export interface SuccessResponseInterface<T = unknown> {
+export interface SuccessResponseInterface {
     statusCode: number;
     message?: string;
     data?: any;
