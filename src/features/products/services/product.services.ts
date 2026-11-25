@@ -63,7 +63,7 @@ export class ProductService {
 
   async update(productData: IUpdateProduct, id: string): Promise<Product> {
     try {
-      return await AppDataSource.transaction(async (manager) => {
+      return await AppDataSource.transaction(async () => {
         const product = await this.repo.findProductById(id);
         if (!product) throw new AppError("Product not found.", 409);
         if (productData.status) validateEnum(productData.status, ProductStatus, "status");
