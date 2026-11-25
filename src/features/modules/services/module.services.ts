@@ -12,7 +12,7 @@ export class ModuleService {
   constructor(private readonly repo: ModuleRepository = moduleRepository) { }
   async createModule(moduleData: ICreateModule): Promise<Module> {
     try {
-      return await AppDataSource.transaction(async (manager) => {
+      return await AppDataSource.transaction(async () => {
         const existingModuleRouteKey = await this.repo.findModuleByRouteKey(moduleData.routeKey);
         if(existingModuleRouteKey) throw new AppError("Route key already exists.", 409);
         if (moduleData.status) validateEnum(moduleData.status, ModuleStatus, "status");

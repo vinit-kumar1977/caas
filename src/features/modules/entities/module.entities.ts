@@ -2,7 +2,6 @@
 import {
     Entity,
     Column,
-    Index,
     OneToMany,
 } from "typeorm";
 import { AuditEntity } from "../../../common/entities/audit.entities.js";

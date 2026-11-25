@@ -1,4 +1,4 @@
-import { DeepPartial, EntityManager, IsNull, Not, Repository } from "typeorm";
+import { DeepPartial, IsNull, Not, Repository } from "typeorm";
 import { AppDataSource } from "../../../infrastructures/database/data-source.database.js";
 import { FullQueryInterface } from "../../../common/schemas/query.schemas.js";
 import { applySearchSortFilters, paginateQuery } from "../../../common/utils/query.utils.js";

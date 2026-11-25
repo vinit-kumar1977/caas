@@ -12,7 +12,7 @@ export class ProductService {
   constructor(private readonly repo: ProductRepository = productRepository) { }
   async create(productData: ICreateProduct): Promise<Product> {
     try {
-      return await AppDataSource.transaction(async (manager) => {
+      return await AppDataSource.transaction(async () => {
         const existingProduct = await this.repo.findProductByCode(productData.code);
         if (existingProduct) throw new AppError("Product code already exists.", 409);
         if (productData.status) validateEnum(productData.status, ProductStatus, "status");
@@ -64,7 +64,7 @@ export class ProductService {
   async update(productData: IUpdateProduct, id: string): Promise<Product> {
     try {
       return await AppDataSource.transaction(async (manager) => {
-        const product = await this.repo.findProductById(id, manager);
+        const product = await this.repo.findProductById(id);
         if (!product) throw new AppError("Product not found.", 409);
         if (productData.status) validateEnum(productData.status, ProductStatus, "status");
 
