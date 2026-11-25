@@ -5,7 +5,6 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
-  CreateDateColumn,
 } from "typeorm";
 import { TimestampEntity } from "../../../common/entities/time-stamp.entities.js";
 import { Plan } from "./plan.entities.js";

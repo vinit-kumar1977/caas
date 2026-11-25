@@ -15,11 +15,11 @@ export class ProductRepository {
     return this.getRepo().findOneBy({ code, deletedAt: IsNull() });
   }
 
-  findProductByCodeExcludeId(code: string, id: string, manager?: EntityManager) {
+  findProductByCodeExcludeId(code: string, id: string) {
     return this.getRepo().findOneBy({ code, id: Not(id), deletedAt: IsNull() });
   }
 
-  findProductById(id: string, manager?: EntityManager) {
+  findProductById(id: string) {
     return this.getRepo().findOneBy({ id, deletedAt: IsNull() });
   }
 
