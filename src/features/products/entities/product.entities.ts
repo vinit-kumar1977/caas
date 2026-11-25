@@ -2,19 +2,18 @@ import {
     Entity,
     Column,
     Index,
-    Check,
+    OneToMany,
 } from "typeorm";
 
 import { AuditEntity } from "../../../common/entities/audit.entities.js";
-import { ProductSettings } from "../schemas/product.schemas.js";
+import { ProductSettings } from "../validations/product.validations.js";
+import { ProductModule } from "../../modules/entities/product-module.entities.js";
+import { Plan } from "../../plans/entities/plan.entities.js";
 
 @Entity({ name: "products" })
-
 @Index("uq_products_code", ["code"], { unique: true })
 @Index("idx_products_status", ["status"])
 @Index("idx_products_public_status", ["isPublic", "status"])
-@Check("chk_products_code_format",`"code" ~ '^[a-z][a-z0-9_]{2,49}$'`)
-@Check("chk_products_status",`"status" IN ('draft', 'active', 'inactive', 'suspended', 'archived')`,)
 
 export class Product extends AuditEntity {
 
@@ -62,4 +61,10 @@ export class Product extends AuditEntity {
         default: () => "'{}'::jsonb",
     })
     settings: ProductSettings;
+
+    @OneToMany(() => ProductModule, (item) => item.module)
+    productModules: ProductModule[];
+
+    @OneToMany(() => Plan, (item) => item.product)
+    plans: Plan[];
 }

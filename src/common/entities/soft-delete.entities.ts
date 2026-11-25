@@ -7,6 +7,7 @@ export abstract class SoftDeleteEntity extends TimestampEntity {
         type: "timestamptz",
         nullable: true,
         select: false,
+        name:"deleted_at"
     })
-    deleted_at: Date;
+    deletedAt: Date;
 }
