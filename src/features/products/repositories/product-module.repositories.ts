@@ -1,4 +1,4 @@
-import { DeepPartial, In, IsNull, Repository } from "typeorm";
+import { In, IsNull, Repository } from "typeorm";
 import { AppDataSource } from "../../../infrastructures/database/data-source.database.js";
 import { ProductModule } from "../entities/product-module.entities.js";
 import { Module } from "../../modules/entities/module.entities.js";
