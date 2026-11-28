@@ -7,9 +7,9 @@ import {
   Index,
   OneToMany,
 } from "typeorm";
-import { Product } from "../../products/entities/product.entities.js";
-import { Module } from "./module.entities.js";
 import { TimestampEntity } from "../../../common/entities/time-stamp.entities.js";
+import { Product } from "./product.entities.js";
+import { Module } from "../../modules/entities/module.entities.js";
 import { PlanModule } from "../../plans/entities/plan-module.entities.js";
 
 
@@ -34,6 +34,9 @@ export class ProductModule extends TimestampEntity {
   })
   @JoinColumn({ name: "module_id", referencedColumnName: "id" })
   module: Module;
+
+  @Column({ name: "sort_order", type: "integer", default: 0 })
+  sortOrder: number;
 
   @OneToMany(() => PlanModule, (item) => item.productModule)
   planModules: PlanModule[];

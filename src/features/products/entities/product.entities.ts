@@ -7,8 +7,8 @@ import {
 
 import { AuditEntity } from "../../../common/entities/audit.entities.js";
 import { ProductSettings } from "../validations/product.validations.js";
-import { ProductModule } from "../../modules/entities/product-module.entities.js";
 import { Plan } from "../../plans/entities/plan.entities.js";
+import { ProductModule } from "./product-module.entities.js";
 
 @Entity({ name: "products" })
 @Index("uq_products_code", ["code"], { unique: true })

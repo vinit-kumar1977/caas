@@ -5,7 +5,7 @@ import {
     OneToMany,
 } from "typeorm";
 import { AuditEntity } from "../../../common/entities/audit.entities.js";
-import { ProductModule } from "./product-module.entities.js";
+import { ProductModule } from "../../products/entities/product-module.entities.js";
 
 @Entity("modules")
 export class Module extends AuditEntity {
@@ -16,7 +16,7 @@ export class Module extends AuditEntity {
     @Column({ type: "text", nullable: true })
     description: string | null;
 
-    @Column({ type: "varchar",name:"route_key", length: 150 })
+    @Column({ type: "varchar", name: "route_key", length: 150 })
     routeKey: string;
 
     @Column({ type: "varchar", length: 80, nullable: true })
@@ -27,6 +27,9 @@ export class Module extends AuditEntity {
         default: "active",
     })
     status: string;
+
+    @Column({ name: "sort_order", type: "integer", default: 0 })
+    sortOrder: number;
 
     @Column({ type: "jsonb", default: () => "'{}'::jsonb" })
     settings: Record<string, unknown>;

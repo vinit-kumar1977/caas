@@ -19,14 +19,14 @@ vi.mock("../../src/infrastructures/database/data-source.database.js", () => ({
 describe("ProductService", () => {
   const manager = {} as never;
   let repository: {
-    findByCode: ReturnType<typeof vi.fn>;
+    findProductByCode: ReturnType<typeof vi.fn>;
     create: ReturnType<typeof vi.fn>;
     save: ReturnType<typeof vi.fn>;
   };
 
   beforeEach(() => {
     repository = {
-      findByCode: vi.fn().mockResolvedValue(null),
+      findProductByCode: vi.fn().mockResolvedValue(null),
       create: vi.fn(),
       save: vi.fn(),
     };
@@ -45,12 +45,12 @@ describe("ProductService", () => {
     const service = new ProductService(repository as unknown as ProductRepository);
     await expect(service.create(input)).resolves.toBe(product);
 
-    expect(repository.findByCode).toHaveBeenCalledWith(input.code, manager);
-    expect(repository.save).toHaveBeenCalledWith(product, manager);
+    expect(repository.findProductByCode).toHaveBeenCalledWith(input.code);
+    expect(repository.save).toHaveBeenCalledWith(product);
   });
 
   it("rejects duplicate product codes", async () => {
-    repository.findByCode.mockResolvedValue(new Product());
+    repository.findProductByCode.mockResolvedValue(new Product());
 
     const service = new ProductService(repository as unknown as ProductRepository);
     await expect(service.create(ProductFactory.create())).rejects.toMatchObject({
