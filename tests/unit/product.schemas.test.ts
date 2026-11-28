@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ajv } from "../../src/common/middlewares/validations/ajv.validations.js";
+import ajv from "../../src/common/middlewares/validations/ajv.validations.js";
 import {
   createProductSchema,
   updateProductSchema,
