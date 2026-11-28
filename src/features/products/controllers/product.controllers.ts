@@ -31,7 +31,7 @@ export class ProductController {
         const {...productData}:IUpdateProduct = req.body;
         const {id} = req.params;
         const product = await this.service.update(productData,id as string)
-        ApiResponse.success(res, {statusCode:200,message:'Product Updated', data:{product}})
+        ApiResponse.success(res, {statusCode:200,message:'Product Updated', data:product,variable: "product"})
     });
 
     deleteProduct = asyncHandler(async (req:Request,res:Response):Promise<any>=>{

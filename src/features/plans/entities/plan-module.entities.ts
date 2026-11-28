@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { TimestampEntity } from "../../../common/entities/time-stamp.entities.js";
 import { Plan } from "./plan.entities.js";
-import { ProductModule } from "../../modules/entities/product-module.entities.js";
+import { ProductModule } from "../../products/entities/product-module.entities.js";
 
 @Entity("plan_modules")
 export class PlanModule extends TimestampEntity{

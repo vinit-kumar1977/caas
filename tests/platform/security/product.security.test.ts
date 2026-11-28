@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ajv } from "../../../src/common/middlewares/validations/ajv.validations.js";
-import { createProductSchema } from "../../../src/features/products/schemas/product.schemas.js";
+import { createProductSchema } from "../../../src/features/products/validations/product.validations.js";
 import { ProductFactory } from "../../factories/product.factory.js";
 
 describe("Product security validation", () => {

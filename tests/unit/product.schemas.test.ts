@@ -3,7 +3,7 @@ import { ajv } from "../../src/common/middlewares/validations/ajv.validations.js
 import {
   createProductSchema,
   updateProductSchema,
-} from "../../src/features/products/schemas/product.schemas.js";
+} from "../../src/features/products/validations/product.validations.js";
 import { ProductFactory } from "../factories/product.factory.js";
 
 describe("Product request schemas", () => {
