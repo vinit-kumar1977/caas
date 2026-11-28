@@ -6,6 +6,7 @@ import {
   JoinColumn,
   Index,
   OneToMany,
+  Relation,
 } from "typeorm";
 import { TimestampEntity } from "../../../common/entities/time-stamp.entities.js";
 import { Product } from "./product.entities.js";
@@ -39,5 +40,5 @@ export class ProductModule extends TimestampEntity {
   sortOrder: number;
 
   @OneToMany(() => PlanModule, (item) => item.productModule)
-  planModules: PlanModule[];
+  planModules: Relation<PlanModule[]>;
 }

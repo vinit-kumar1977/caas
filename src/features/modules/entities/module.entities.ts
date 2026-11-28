@@ -3,6 +3,7 @@ import {
     Entity,
     Column,
     OneToMany,
+    Relation,
 } from "typeorm";
 import { AuditEntity } from "../../../common/entities/audit.entities.js";
 import { ProductModule } from "../../products/entities/product-module.entities.js";
@@ -35,5 +36,5 @@ export class Module extends AuditEntity {
     settings: Record<string, unknown>;
 
     @OneToMany(() => ProductModule, (item) => item.module)
-    productModules: ProductModule[];
+    productModules: Relation<ProductModule[]>;
 }
