@@ -25,7 +25,7 @@ export class Plan extends AuditEntity {
         onDelete: "RESTRICT",
     })
     @JoinColumn({ name: "product_id", referencedColumnName: "id" })
-    product: Product;
+    product:Relation<Product>;
 
     @Column({ type: "varchar", length: 80 })
     code: string;
