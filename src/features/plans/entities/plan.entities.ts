@@ -6,6 +6,7 @@ import {
     JoinColumn,
     Index,
     OneToMany,
+    Relation,
 } from "typeorm";
 import { AuditEntity } from "../../../common/entities/audit.entities.js";
 import { Product } from "../../products/entities/product.entities.js";
@@ -45,5 +46,5 @@ export class Plan extends AuditEntity {
     status: string;
 
     @OneToMany(() => PlanModule, (item) => item.plan)
-    planModules: PlanModule[];
+    planModules:Relation<PlanModule[]>;
 }
