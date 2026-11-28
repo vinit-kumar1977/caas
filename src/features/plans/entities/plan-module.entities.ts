@@ -5,6 +5,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Relation,
 } from "typeorm";
 import { TimestampEntity } from "../../../common/entities/time-stamp.entities.js";
 import { Plan } from "./plan.entities.js";
@@ -26,7 +27,7 @@ export class PlanModule extends TimestampEntity{
     onDelete: "CASCADE",
   })
   @JoinColumn({ name: "planId",referencedColumnName:"id" })
-  plan: Plan;
+  plan: Relation<Plan>;
 
   @ManyToOne(
     () => ProductModule,
@@ -34,5 +35,5 @@ export class PlanModule extends TimestampEntity{
     { onDelete: "CASCADE" },
   )
   @JoinColumn({ name: "productModuleId",referencedColumnName:"id" })
-  productModule: ProductModule;
+  productModule:Relation<ProductModule>;
 }
