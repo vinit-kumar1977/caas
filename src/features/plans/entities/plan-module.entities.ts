@@ -1,39 +1,82 @@
-
 import {
   Entity,
-  PrimaryColumn,
   Column,
   ManyToOne,
   JoinColumn,
   Relation,
+  Index,
+  Check,
+  Unique,
 } from "typeorm";
+
 import { TimestampEntity } from "../../../common/entities/time-stamp.entities.js";
 import { Plan } from "./plan.entities.js";
 import { ProductModule } from "../../products/entities/product-module.entities.js";
 
 @Entity("plan_modules")
-export class PlanModule extends TimestampEntity{
 
-  @PrimaryColumn("uuid")
-  plan_id: string;
+// Required: plan_module_features has a composite FK
+// (plan_id, product_module_id) → plan_modules(plan_id, product_module_id).
+// PostgreSQL only allows an FK to reference a PRIMARY KEY or UNIQUE constraint.
+// Also prevents the same module being attached to the same plan twice.
+@Unique("UQ_PLAN_MODULE_PLAN_PRODUCT_MODULE", ["planId", "productModuleId"])
 
-  @PrimaryColumn("uuid")
-  product_module_id: string;
+@Index("IDX_PLAN_MODULE_PRODUCT_STATUS", ["productId", "status"])
+@Index("IDX_PLAN_MODULE_PLAN_STATUS", ["planId", "status"])
 
-  @Column({ type: "uuid" })
-  product_id: string;
+@Check(
+  "CK_PLAN_MODULE_STATUS",
+  `"status" IN ('active', 'inactive', 'archived')`,
+)
 
-  @ManyToOne(() => Plan, (plan) => plan.planModules, {
-    onDelete: "CASCADE",
+export class PlanModule extends TimestampEntity {
+
+  @Column("uuid", { name: "plan_id" })
+  planId: string;
+
+  @Column("uuid", { name: "product_module_id" })
+  productModuleId: string;
+
+  @Column({
+    name: "product_id",
+    type: "uuid",
   })
-  @JoinColumn({ name: "planId",referencedColumnName:"id" })
+  productId: string;
+
+  @ManyToOne(
+    () => Plan,
+    (plan) => plan.planModules,
+    {
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+  )
+  @JoinColumn({
+    name: "plan_id",
+    referencedColumnName: "id",
+  })
   plan: Relation<Plan>;
 
   @ManyToOne(
     () => ProductModule,
     (item) => item.planModules,
-    { onDelete: "CASCADE" },
+    {
+      nullable: false,
+      onDelete: "CASCADE",
+    },
   )
-  @JoinColumn({ name: "productModuleId",referencedColumnName:"id" })
-  productModule:Relation<ProductModule>;
+  @JoinColumn({
+    name: "product_module_id",
+    referencedColumnName: "id",
+  })
+  productModule: Relation<ProductModule>;
+
+  @Column({
+    name: "status",
+    type: "varchar",
+    length: 20,
+    default: "active",
+    nullable: false,
+  })
+  status: string;
 }
