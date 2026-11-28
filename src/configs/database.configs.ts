@@ -22,8 +22,12 @@ const databaseConfigs = {
     entities: [
         path.join(
             currentDir,
-            "../features/**/entities/**/*.entities.{js,ts}"
-        )
+            "../features/**/*.entities.{js,ts}",
+        ),
+        path.join(
+            currentDir,
+            "../common/entities/**/*.entities.{js,ts}",
+        ),
     ],
     // migrationsRun: true,
         

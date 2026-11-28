@@ -12,7 +12,7 @@ import type {
   ValidationErrorDetail,
 } from "./validation-type.validations.js";
 
-import { ajv } from "./ajv.validations.js";
+import ajv  from "./ajv.validations.js";
 
 const compiledSchemas = new Map<AnySchema, ValidateFunction>();
 
