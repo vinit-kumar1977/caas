@@ -3,3 +3,11 @@ export enum ModuleStatus {
   INACTIVE = "inactive",
   ARCHIVED = "archived",
 }
+
+export enum FeatureType {
+  BOOLEAN = "boolean",
+    LIMIT = "limit",
+    CONFIG = "config",
+    ACTION = "action",
+    UI = "ui",
+}

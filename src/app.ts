@@ -7,7 +7,7 @@ import envConfigurations from "./configs/env.configs.js";
 import swaggerRouter from "./features/routes/swagger.routes.js";
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: "256kb" }));
 app.use(requestMetaMiddleware);
 if (envConfigurations.APP_ENV !== "production") {
     app.use("/api/v1", swaggerRouter);
