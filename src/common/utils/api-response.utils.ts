@@ -10,12 +10,13 @@ import {
 export class ApiResponse {
     static success(res: Response, options: SuccessResponseInterface): void {
         const meta = res.locals.meta as MetaDataInterface;
-
         res.status(options.statusCode).json({
             success: true,
             code: getHttpStatus(options.statusCode),
             message: options.message || "Success",
-            data: options.data ?? null,
+            item: {
+                [options.variable ?? "data"]: options.data ?? null,
+            },
             meta: {
                 requestId: meta.requestId,
                 timestamp: meta.timestamp,
@@ -37,7 +38,7 @@ export class ApiResponse {
             success: false,
             code: getHttpStatus(options.statusCode),
             message: options.message || "Failed",
-            data: null,
+            item: null,
             error: options.errors ?? null,
             meta: {
                 requestId: meta.requestId,

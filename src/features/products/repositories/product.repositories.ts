@@ -1,46 +1,80 @@
-import { DeepPartial, EntityManager, IsNull, Not, Repository } from "typeorm";
+import { DeepPartial, IsNull, Not, Repository } from "typeorm";
 import { Product } from "../entities/product.entities.js";
 import { AppDataSource } from "../../../infrastructures/database/data-source.database.js";
+import { FullQueryInterface } from "../../../common/schemas/query.schemas.js";
+import { applySearchSortFilters, paginateQuery } from "../../../common/utils/query.utils.js";
+import { PRODUCT_QUERY_POLICY } from "../configs/product.configs.js";
 
 export class ProductRepository {
-  private getRepo(manager?: EntityManager): Repository<Product> {
-    return manager ? manager.getRepository(Product) : AppDataSource.getRepository(Product);
+
+  private getRepo(): Repository<Product> {
+    return AppDataSource.getRepository(Product);
   }
 
-  findByCode(code: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { code, deleted_at: IsNull() } });
+  findProductByCode(code: string) {
+    return this.getRepo().findOneBy({ code, deletedAt: IsNull() });
   }
 
-  findByCodeExcludingId(code: string, excludeId: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { code, id: Not(excludeId), deleted_at: IsNull() } });
+  findProductByCodeExcludeId(code: string, id: string) {
+    return this.getRepo().findOneBy({ code, id: Not(id), deletedAt: IsNull() });
   }
 
-  findById(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOneBy({ id });
+  findProductById(id: string) {
+    return this.getRepo().findOneBy({ id, deletedAt: IsNull() });
   }
 
-  findByIdActive(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).findOne({ where: { id, deleted_at: IsNull() } });
+  findAllProducts(query: FullQueryInterface) {
+    const repository = AppDataSource.getRepository(Product);
+    const qb = repository
+      .createQueryBuilder("p")
+      .where("p.deletedAt IS NULL")
+    applySearchSortFilters(
+      qb,
+      "p",
+      query,
+      PRODUCT_QUERY_POLICY,
+    );
+    return paginateQuery(
+      qb,
+      query,
+      PRODUCT_QUERY_POLICY,
+    );
   }
 
-  createQueryBuilder(alias = "p", manager?: EntityManager) {
-    return this.getRepo(manager).createQueryBuilder(alias);
+  findAllProductsList(query: FullQueryInterface) {
+    const repository = AppDataSource.getRepository(Product);
+    const qb = repository
+      .createQueryBuilder("p")
+      .where("p.deletedAt IS NULL")
+      .andWhere("p.status = :status", { status: "active" })
+      .select(["p.id","p.name","p.code","p.logo"])
+    applySearchSortFilters(
+      qb,
+      "p",
+      query,
+      PRODUCT_QUERY_POLICY,
+    );
+    return paginateQuery(
+      qb,
+      query,
+      PRODUCT_QUERY_POLICY,
+    );
   }
 
-  create(data: DeepPartial<Product>, manager?: EntityManager): Product {
-    return this.getRepo(manager).create(data);
+  createQueryBuilder(alias = "p") {
+    return this.getRepo().createQueryBuilder(alias);
   }
 
-  save(product: Product, manager?: EntityManager) {
-    return this.getRepo(manager).save(product);
+  create(data: DeepPartial<Product>): Product {
+    return this.getRepo().create(data);
   }
 
-//   update(id: string, partial: Partial<Product>, manager?: EntityManager) {
-//     return this.getRepo(manager).update(id, partial);
-//   }
+  save(product: Product) {
+    return this.getRepo().save(product);
+  }
 
-  softDelete(id: string, manager?: EntityManager) {
-    return this.getRepo(manager).softDelete(id);
+  delete(id: string) {
+    return this.getRepo().softDelete(id);
   }
 }
 

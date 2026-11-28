@@ -2,7 +2,7 @@ import envConfigurations from "./env.configs.js"
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const isProduction = envConfigurations.APP_ENV === "production";
+// const isProduction = envConfigurations.APP_ENV === "production";
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -25,11 +25,11 @@ const databaseConfigs = {
             "../features/**/entities/**/*.entities.{js,ts}"
         )
     ],
-    migrationsRun: true,
+    // migrationsRun: true,
         
-    migrations: isProduction
-        ? ["dist/database/migrations/*.js"]
-        : ["src/database/migrations/*.ts"],
+    // migrations: isProduction
+    //     ? ["dist/database/migrations/*.js"]
+    //     : ["src/database/migrations/*.ts"],
 
     extra: {
         min: envConfigurations.DB_POOL_MIN,

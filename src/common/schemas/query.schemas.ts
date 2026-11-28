@@ -1,3 +1,5 @@
+import { AnySchema } from "ajv";
+
 export type ScalarFilterOperator =
     | "contains"
     | "equals"
@@ -47,12 +49,12 @@ export interface PaginationInterface {
 }
 
 export interface PaginationMetaInterface {
-  totalRecord: number;
-  totalPage: number;
-  currentPage: number;
-  perPage: number;
-  nextPage: boolean;
-  prevPage: boolean;
+    totalRecord: number;
+    totalPage: number;
+    currentPage: number;
+    perPage: number;
+    nextPage: boolean;
+    prevPage: boolean;
 }
 
 export interface SearchInterface {
@@ -78,6 +80,32 @@ export type FullQueryInterface =
     SortingInterface &
     FilterInterface;
 
+export interface QueryFieldPolicy {
+    operators: FilterOperator[];
+    type: "string" | "number" | "date" | "boolean";
+}
+
+export interface EntityQueryPolicy {
+    searchableFields: string[];
+    sortableFields: string[];
+    filterableFields: Record<string, QueryFieldPolicy>;
+    defaultSortBy: string;
+    defaultSortOrder: "ASC" | "DESC";
+    defaultLimit: number;
+    maxLimit: number;
+}
+
+export const IdSchema: AnySchema = {
+    type: "object",
+    additionalProperties: false,
+    required: ["id"],
+    properties: {
+        id: {
+            type: "string",
+            format: "uuid",
+        },
+    }
+};
 
 export const fullQuerySchema = {
     type: "object",

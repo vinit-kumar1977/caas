@@ -1,5 +1,9 @@
-
 import swaggerJsdoc from "swagger-jsdoc";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const swaggerOptions: swaggerJsdoc.Options = {
     definition: {
@@ -36,8 +40,14 @@ const swaggerOptions: swaggerJsdoc.Options = {
                 ApiError: {
                     type: "object",
                     properties: {
-                        success: { type: "boolean", example: false },
-                        statusCode: { type: "integer", example: 400 },
+                        success: {
+                            type: "boolean",
+                            example: false,
+                        },
+                        statusCode: {
+                            type: "integer",
+                            example: 400,
+                        },
                         error: {
                             type: "object",
                             properties: {
@@ -65,8 +75,12 @@ const swaggerOptions: swaggerJsdoc.Options = {
         },
     },
 
-    // Scan feature route files for OpenAPI comments.
-    apis: ["src/features/**/*.routes.ts"],
+    apis: [
+        path.resolve(
+            __dirname,
+            "../../features/**/*.routes.ts",
+        ),
+    ],
 };
 
 export const swaggerSpec = swaggerJsdoc(swaggerOptions);
