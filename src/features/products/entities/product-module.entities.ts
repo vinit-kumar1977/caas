@@ -28,13 +28,13 @@ export class ProductModule extends TimestampEntity {
     onDelete: "RESTRICT",
   })
   @JoinColumn({ name: "product_id", referencedColumnName: "id" })
-  product: Product;
+  product: Relation<Product>;
 
   @ManyToOne(() => Module, (module) => module.productModules, {
     onDelete: "RESTRICT",
   })
   @JoinColumn({ name: "module_id", referencedColumnName: "id" })
-  module: Module;
+  module: Relation<Module>;
 
   @Column({ name: "sort_order", type: "integer", default: 0 })
   sortOrder: number;
